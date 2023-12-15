@@ -1,5 +1,7 @@
 import requests
 from scrapper.scrapper import mexx_scrapper, ml_scrapper
+from prettytable import PrettyTable
+
 
 def get_request(url:str) -> str:
     """Simply function to get the content of a page
@@ -41,13 +43,18 @@ def main():
     mexx_content = get_request(slist[1])
     ml_products = ml_scrapper(ml_content)
     mexx_products = mexx_scrapper(mexx_content)
+    mltable = PrettyTable()
+    mltable.field_names = ["Title", "Price", "Link"]
+    mexxtable = PrettyTable()
+    mexxtable.field_names = ["Title", "Price", "Link"]
     for i in range(3):
-        print(ml_products[i]['title'], end=' --------- ')
-        print(mexx_products[i]['title'])
-        print(ml_products[i]['price'], end=' --------- ')
-        print(mexx_products[i]['price'])
-        print(ml_products[i]['link'], end=' --------- ')
-        print(mexx_products[i]['link'], end='\n \n')
+        mltable.add_row([ml_products[i]['title'],
+                         ml_products[i]['price'],
+                         ml_products[i]['link']])
+        mexxtable.add_row([mexx_products[i]['title'],
+                           mexx_products[i]['price'],
+                           mexx_products[i]['link']])
+    print(mltable, mexxtable)
     
 
 
