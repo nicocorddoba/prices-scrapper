@@ -1,4 +1,3 @@
-import requests
 from bs4 import BeautifulSoup as bs
 
 def ml_scrapper(ml_content) -> list[tuple]:
@@ -36,7 +35,7 @@ def mexx_scrapper(mexx_content) -> list[tuple]:
     pdata = []
     for i in range(3):
         pdict = {}
-        pdict['title'] = plist[i].find_all("h4", {"class":"card-title mb-1 h-40"})[0].text
+        pdict['title'] = plist[i].find_all("h4", {"class":"card-title mb-1 h-40"})[0].text.strip("\n")
         pdict['price'] = plist[i].find_all("h6", {"class":"mb-0 anterior"})[0].text
         pdict['link'] = plist[i].find_all("h4", {"class":"card-title mb-1 h-40"})[0].find('a').get('href')
         pdata.append(pdict)

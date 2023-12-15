@@ -1,4 +1,5 @@
 import requests
+from scrapper.scrapper import mexx_scrapper, ml_scrapper
 
 def get_request(url:str) -> str:
     """Simply function to get the content of a page
@@ -36,10 +37,18 @@ def search(inpt: str)->list:
 def main():
     inpt:str = input("What are you looking for?: ")
     slist = search(inpt=inpt)
-    print(slist)
     ml_content = get_request(slist[0])
     mexx_content = get_request(slist[1])
-    print(mexx_scrapper(mexx_content))
+    ml_products = ml_scrapper(ml_content)
+    mexx_products = mexx_scrapper(mexx_content)
+    for i in range(3):
+        print(ml_products[i]['title'], end=' --------- ')
+        print(mexx_products[i]['title'])
+        print(ml_products[i]['price'], end=' --------- ')
+        print(mexx_products[i]['price'])
+        print(ml_products[i]['link'], end=' --------- ')
+        print(mexx_products[i]['link'], end='\n \n')
+    
 
 
 if __name__ == "__main__":
